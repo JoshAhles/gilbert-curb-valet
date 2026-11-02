@@ -1,0 +1,56 @@
+---
+import SignupForm from "./SignupForm.astro";
+---
+<div class="sticky-bar" data-sticky-bar hidden>
+  <div class="inner">
+    <button type="button" class="ink-btn open" data-sticky-open>Save my spot <span aria-hidden="true">→</span></button>
+    <div class="form" data-sticky-form hidden><SignupForm source="sticky" compact /></div>
+  </div>
+</div>
+<style>
+  .sticky-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 50; padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); background: var(--bg); border-top: 2px solid var(--ink); }
+  .inner { max-width: 520px; margin-inline: auto; }
+  .open { width: 100%; padding: 13px; font-size: 1.05rem; }
+  .form :global(.signup) { max-width: none; }
+</style>
+<script>
+  import { barVisible } from "../scripts/sticky-bar-logic.js";
+  const bar = document.querySelector<HTMLElement>("[data-sticky-bar]")!;
+  const hero = document.querySelector('form[data-source="hero"]');
+  const fin = document.querySelector('form[data-source="final"]');
+  const mq = matchMedia("(max-width: 767px)");
+  const state = { heroFormInView: true, finalFormInView: false };
+  const stickyEmail = bar.querySelector<HTMLInputElement>('input[type=email]');
+  let joined = false;
+  let succeededHere = false;
+  const typing = () => document.activeElement === stickyEmail || Boolean(stickyEmail?.value);
+  const update = () => {
+    // Keep the bar up briefly after a sticky sign-up so the person sees the confirmation.
+    if (succeededHere) return;
+    bar.hidden = !barVisible({ ...state, isPhone: mq.matches, joined, typing: typing() });
+  };
+  document.addEventListener("gcv:form", (e: Event) => {
+    const d = (e as CustomEvent).detail;
+    if (d.type !== "success") return;
+    joined = true;
+    if (d.source === "sticky") { succeededHere = true; setTimeout(() => { succeededHere = false; update(); }, 6000); }
+    update();
+  });
+  stickyEmail?.addEventListener("blur", update);
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.target === hero) state.heroFormInView = e.isIntersecting;
+      if (e.target === fin) state.finalFormInView = e.isIntersecting;
+    }
+    update();
+  });
+  if (hero) io.observe(hero);
+  if (fin) io.observe(fin);
+  mq.addEventListener("change", update);
+  bar.querySelector("[data-sticky-open]")!.addEventListener("click", (ev) => {
+    (ev.currentTarget as HTMLElement).hidden = true;
+    const f = bar.querySelector<HTMLElement>("[data-sticky-form]")!;
+    f.hidden = false;
+    f.querySelector("input[type=email]")?.focus();
+  });
+</script>

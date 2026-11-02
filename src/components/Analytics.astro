@@ -1,0 +1,31 @@
+---
+// GA4 only when PUBLIC_GA_ID is set. Off by default.
+import { EEA_UK_REGIONS } from "../lib/analytics.js";
+import { SITE } from "../data/site.js";
+const id = SITE.gaId;
+const inline = `
+window.dataLayer = window.dataLayer || [];
+function gtag(){ dataLayer.push(arguments); }
+window.gtag = gtag;
+gtag('consent','default',{ analytics_storage:'denied', ad_storage:'denied', ad_user_data:'denied', ad_personalization:'denied', region:${JSON.stringify(EEA_UK_REGIONS)}, wait_for_update: 500 });
+gtag('consent','default',{ analytics_storage:'granted', ad_storage:'denied', ad_user_data:'denied', ad_personalization:'denied' });
+var stored = null; try { stored = localStorage.getItem('gcv.consent'); } catch(e){}
+if (stored) gtag('consent','update',{ analytics_storage: stored });
+gtag('js', new Date());
+gtag('config','${id}',{ anonymize_ip:true });
+`;
+---
+{id && (
+  <>
+    <script is:inline set:html={inline} />
+    <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${id}`}></script>
+    <script>
+      import { track } from "../lib/analytics.js";
+      const names = { start: "form_start", success: "generate_lead", street: "street_shared" };
+      document.addEventListener("gcv:form", (e) => {
+        const n = names[e.detail.type];
+        if (n) track(n, { source: e.detail.source });
+      });
+    </script>
+  </>
+)}

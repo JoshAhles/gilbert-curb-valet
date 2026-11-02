@@ -1,0 +1,38 @@
+---
+const steps = [
+  { n: 1, t: "The night before pickup, we roll your carts out.", d: "Trash and recycling, lined up at the curb for the Town truck." },
+  { n: 2, t: "The Town truck empties them.", d: "Same pickup you have now. Your trash service doesn't change." },
+  { n: 3, t: "We roll them back that evening.", d: "Back where they live by 6 PM pickup day. Nothing for you to do." },
+];
+---
+<section class="how" id="how" aria-labelledby="how-h">
+  <p class="eyebrow">How it works</p>
+  <h2 id="how-h" class="sr-only">How it works</h2>
+  <ol>
+    {steps.map((s) => (
+      <li class="step" data-beat={s.n}>
+        <div class="panel">
+          <span class="num" aria-hidden="true">{s.n}</span>
+          <h3>{s.t}</h3>
+          <p>{s.d}</p>
+        </div>
+      </li>
+    ))}
+  </ol>
+</section>
+<style>
+  .how { padding-block: 8vh 14vh; }
+  ol { list-style: none; padding: 0; margin: 0; }
+  .step { min-height: 70vh; display: flex; align-items: center; }
+  .num { display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; font-weight: 900; font-size: 1.1rem; background: var(--btn); color: var(--btn-text); border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); transition: transform .25s ease, background .25s ease; }
+  :global(.scene-on) .step:not(.is-active) .num { background: transparent; color: var(--ink); box-shadow: none; transform: scale(.85); }
+  h3 { font-size: clamp(1.6rem, 3vw, 2.4rem); margin: 16px 0 10px; max-width: 16ch; }
+  p { margin: 0; font-size: 1.12rem; line-height: 1.55; max-width: 34ch; }
+  @media (max-width: 767px) {
+    .how { padding-block: 28px 6svh; }
+    .step:last-child { min-height: 34svh; }
+    /* Phones: steps scroll up under the sticky scene card, one per screen. */
+    .step { min-height: 46svh; align-items: flex-start; padding-top: 4svh; }
+    h3 { max-width: none; font-size: 1.6rem; }
+  }
+</style>

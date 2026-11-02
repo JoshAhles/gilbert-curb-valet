@@ -1,0 +1,47 @@
+---
+const groups = [
+  { k: "host", who: "Rental & Airbnb hosts", t: "Guests don't know trash night. We do.", d: "Carts go out and come back on schedule between stays. No asking a cleaner or a neighbor to remember." },
+  { k: "senior", who: "Seniors", t: "Full carts are heavy.", d: "Skip the long roll down the driveway, in the heat or in the dark. We do the lifting both ways." },
+  { k: "busy", who: "Busy households", t: "Trash night happens anyway.", d: "Travel, late nights, early mornings. Carts are back out of sight the same evening, so your HOA stays happy." },
+];
+const icons = {
+  host: `<svg viewBox="0 0 48 48"><rect x="9" y="16" width="30" height="24" rx="5" fill="#fff8ee" stroke="#3b2416" stroke-width="3"/><path d="M18 16v-5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v5" fill="none" stroke="#3b2416" stroke-width="3"/><path d="M9 26h30" stroke="#3b2416" stroke-width="3"/></svg>`,
+  senior: `<svg viewBox="0 0 48 48"><path d="M24 40s-13-8-13-18a7 7 0 0 1 13-4 7 7 0 0 1 13 4c0 10-13 18-13 18z" fill="#fff8ee" stroke="#3b2416" stroke-width="3" stroke-linejoin="round"/></svg>`,
+  busy: `<svg viewBox="0 0 48 48"><circle cx="24" cy="25" r="15" fill="#fff8ee" stroke="#3b2416" stroke-width="3"/><path d="M24 17v9l6 4" fill="none" stroke="#3b2416" stroke-width="3" stroke-linecap="round"/><path d="M14 8l-5 4M34 8l5 4" stroke="#3b2416" stroke-width="3" stroke-linecap="round"/></svg>`,
+};
+---
+<section class="wrap section" aria-labelledby="who-h">
+  <div class="section-head">
+    <p class="eyebrow">Who it's for</p>
+    <h2 id="who-h">For Gilbert homes with better things to do.</h2>
+  </div>
+  <div class="grid">
+    {groups.map((g) => (
+      <article class={`card ${g.k} reveal`}>
+        <div class="head">
+          <span class="icon" aria-hidden="true" set:html={icons[g.k]} />
+          <p class="who">{g.who}</p>
+        </div>
+        <h3>{g.t}</h3>
+        <p class="d">{g.d}</p>
+      </article>
+    ))}
+  </div>
+</section>
+<style>
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 2.4vw, 28px); }
+  /* All cards share one cream face; a colored crown ties each to its audience. */
+  .card { background: var(--card); border: 2px solid #3b2416; border-radius: 24px; box-shadow: 6px 6px 0 #3b2416; overflow: hidden; display: flex; flex-direction: column; transition: transform .25s ease, box-shadow .25s ease; }
+  .card:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0 #3b2416; }
+  .head { display: flex; align-items: center; gap: 12px; padding: 16px 22px; border-bottom: 2px solid #3b2416; }
+  .host .head { background: #ffcf9a; }
+  .senior .head { background: #a9c8f0; }
+  .busy .head { background: #c9dca0; }
+  .icon { width: 40px; height: 40px; flex: none; }
+  .icon :global(svg) { width: 100%; height: 100%; display: block; }
+  .who { margin: 0; font-weight: 800; color: #3b2416; font-size: 1rem; letter-spacing: -0.01em; }
+  h3 { font-size: clamp(1.5rem, 2.3vw, 1.95rem); margin: 22px 22px 10px; }
+  .d { margin: 0 22px 26px; font-size: 1.08rem; line-height: 1.55; }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+  @media (prefers-reduced-motion: reduce) { .card, .card:hover { transition: none; transform: none; } }
+</style>

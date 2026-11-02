@@ -1,0 +1,35 @@
+---
+import { FAQ } from "../data/faq.js";
+---
+<section class="wrap section faq" id="faq" aria-labelledby="faq-h">
+  <div class="head">
+    <p class="eyebrow">Questions</p>
+    <h2 id="faq-h">Good to know.</h2>
+    <p class="sub">Still wondering? Join the list and reply to our email with your question.</p>
+  </div>
+  <div class="list">
+    {FAQ.map((f, i) => (
+      <details>
+        <summary><span class="n">{String(i + 1).padStart(2, "0")}</span><span class="q">{f.q}</span></summary>
+        <p>{f.a}</p>
+      </details>
+    ))}
+  </div>
+</section>
+<style>
+  .faq { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(24px, 6vw, 96px); align-items: start; }
+  .head { position: sticky; top: 32px; }
+  h2 { font-size: clamp(2.2rem, 4.8vw, 3.6rem); margin: 10px 0 0; }
+  .sub { padding: 0; margin: 16px 0 0; color: var(--muted); font-size: 1.05rem; max-width: 18rem; }
+  details { border-top: 2px solid color-mix(in srgb, var(--ink) 14%, transparent); }
+  details:last-child { border-bottom: 2px solid color-mix(in srgb, var(--ink) 14%, transparent); }
+  summary { cursor: pointer; padding: 22px 0; font-weight: 700; color: var(--ink); font-size: clamp(1.1rem, 1.7vw, 1.3rem); letter-spacing: -0.015em; list-style: none; display: flex; align-items: center; gap: 18px; }
+  .n { flex: none; font-size: .8rem; font-weight: 800; color: var(--eyebrow); letter-spacing: .06em; width: 2ch; }
+  .q { flex: 1; }
+  details[open] summary::after { background: var(--btn); color: var(--btn-text); }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; flex: none; width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; border: 2px solid var(--ink); font-weight: 900; line-height: 1; transition: transform .2s ease; }
+  details[open] summary::after { transform: rotate(45deg); }
+  p { margin: -6px 0 24px 0; padding-left: calc(2ch + 18px); line-height: 1.6; font-size: 1.08rem; max-width: 40rem; }
+  @media (max-width: 767px) { .faq { grid-template-columns: 1fr; } .head { position: static; } }
+</style>

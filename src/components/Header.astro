@@ -1,0 +1,16 @@
+---
+import Logo from "./Logo.astro";
+---
+<header class="site-header">
+  <div class="wrap bar">
+    <a href="/" class="brand" aria-label="Gilbert Curb Valet home"><Logo /><span>Gilbert Curb Valet</span></a>
+    <a href="#join" class="ink-btn join">Save my spot</a>
+  </div>
+</header>
+<style>
+  .site-header { position: absolute; inset: 0 0 auto 0; z-index: 10; }
+  .bar { display: flex; align-items: center; justify-content: space-between; padding-block: 16px; }
+  .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); font-weight: 900; font-size: 1.05rem; text-decoration: none; letter-spacing: -0.01em; }
+  .join { padding: 8px 14px; font-size: 0.9rem; text-decoration: none; }
+  @media (max-width: 420px) { .join { display: none; } }
+</style>

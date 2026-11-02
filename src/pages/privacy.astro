@@ -1,0 +1,16 @@
+---
+import LegalPage from "../components/LegalPage.astro";
+import { SITE } from "../data/site.js";
+const contact = SITE.contactEmail ? `email ${SITE.contactEmail}` : "reply to any email we send you";
+---
+<LegalPage title="Privacy">
+  <p>Last updated November 1, 2026. This page covers the Gilbert Curb Valet website and our email list. Gilbert Curb Valet is a service of CodeBucky LLC.</p>
+  <h2>What we collect</h2>
+  <p>Your email address when you join the list. If you choose to tell us, the street you live on.</p>
+  <h2>Why</h2>
+  <p>Only to tell you when service opens on your street and to plan which streets to open first. We never sell or rent your information.</p>
+  <h2>Who handles it</h2>
+  <p>Our sign-up form is processed by Formspree, which emails each sign-up to us. If we turn on Google Analytics, it records anonymous page visits. Visitors in Europe and the UK are asked first.</p>
+  <h2>Getting off the list</h2>
+  <p>To be removed, {contact}. We'll delete your email and street.</p>
+</LegalPage>

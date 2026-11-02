@@ -1,0 +1,45 @@
+---
+import { SITE } from "../data/site.js";
+interface Props { source: "hero" | "final" | "sticky"; compact?: boolean; }
+const { source, compact = false } = Astro.props;
+const id = `email-${source}`;
+---
+<form data-signup data-source={source} novalidate class:list={["signup", { compact }]}>
+  <div class="row">
+    <label for={id} class="sr-only">Email address</label>
+    <input id={id} class="ink-field" type="email" name="email" autocomplete="email" inputmode="email" required placeholder="you@email.com" />
+    <button type="submit" class="ink-btn"><span data-label>Save my spot</span></button>
+  </div>
+  <div class="visually-hidden-trap" aria-hidden="true">
+    <label>Leave this empty <input name="_gotcha" tabindex="-1" autocomplete="off" /></label>
+  </div>
+  {!compact && <p data-msg aria-live="polite" class="fine">Free to join. No card. We'll email you when your street opens.</p>}
+  {compact && <p data-msg aria-live="polite" class="fine sr-only-empty"></p>}
+  <div data-street-step hidden class="street">
+    <label for={`street-${source}`} class="fine">Optional: what street are you on?</label>
+    <div class="row">
+      <input id={`street-${source}`} class="ink-field" name="street" autocomplete="address-line1" maxlength="120" placeholder="e.g. W Elm St" />
+      <button type="button" class="ink-btn" data-street-send>Send</button>
+    </div>
+  </div>
+  <noscript>
+    <p class="fine">Sign-up needs JavaScript. {SITE.contactEmail ? <>Email us at <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a> to join the list.</> : "Turn it on to join the list."}</p>
+  </noscript>
+</form>
+
+<style>
+  .signup { max-width: 440px; }
+  .row { display: flex; gap: 8px; }
+  .row .ink-field { flex: 1; padding: 14px 16px; font-size: 1.05rem; min-height: 52px; box-sizing: border-box; }
+  .row .ink-btn { padding: 14px 20px; font-size: 1.05rem; white-space: nowrap; min-height: 52px; }
+  .fine { font-size: 0.92rem; line-height: 1.45; margin: 10px 0 0; color: var(--muted); }
+  .fine[data-tone="ok"] { color: var(--ink); font-weight: 700; }
+  .fine[data-tone="err"] { color: var(--eyebrow); font-weight: 700; }
+  .street { margin-top: 12px; }
+  .street .row { margin-top: 6px; }
+  .compact .row .ink-field, .compact .row .ink-btn { padding: 11px 12px; }
+  .sr-only-empty:empty { display: none; }
+  /* Small phones: stack the field and a full-width button. */
+  @media (max-width: 440px) { .row { flex-direction: column; } .row .ink-btn { width: 100%; } }
+</style>
+<script>import "../scripts/signup-boot.js";</script>

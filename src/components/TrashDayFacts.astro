@@ -1,0 +1,65 @@
+---
+import { SITE } from "../data/site.js";
+const stops = [
+  { day: "Night before", t: "6 PM", what: "We roll your carts out.", why: "The earliest Gilbert allows.", icon: "out", tone: "light" },
+  { day: "Pickup day", t: "5 AM", what: "The Town truck empties them.", why: "Gilbert's curb deadline.", icon: "truck", tone: "dark" },
+  { day: "Pickup day", t: "6 PM", what: "We roll them back in.", why: "Same evening. Out of sight again.", icon: "back", tone: "light" },
+];
+---
+<section class="wrap section" aria-labelledby="facts-h">
+  <div class="section-head">
+    <p class="eyebrow">The night shift</p>
+    <h2 id="facts-h">We work the Town's window.</h2>
+    <p>Gilbert lets carts go out at 6 PM the night before pickup. We roll them out then, and have them back in by 6 PM pickup day, so they're never sitting at the curb overnight twice.</p>
+  </div>
+  <ol class="shift reveal">
+    {stops.map((x) => (
+      <li class={x.tone}>
+        <span class="time">{x.t}</span>
+        <span class="day">{x.day}</span>
+        <span class="icon" aria-hidden="true">
+          {x.icon === "truck" ? (
+            <svg viewBox="0 0 120 70"><rect x="6" y="14" width="66" height="38" rx="5" fill="#f4efe6" stroke="#3b2416" stroke-width="4"/><rect x="6" y="38" width="66" height="7" fill="#3c8f6b"/><path d="M72 26 h22 l14 14 v12 h-36 z" fill="#3c8f6b" stroke="#3b2416" stroke-width="4" stroke-linejoin="round"/><rect x="80" y="30" width="12" height="9" rx="2" fill="#9fd0e6" stroke="#3b2416" stroke-width="3"/><circle cx="26" cy="56" r="9" fill="#2b2b2b" stroke="#3b2416" stroke-width="4"/><circle cx="90" cy="56" r="9" fill="#2b2b2b" stroke="#3b2416" stroke-width="4"/></svg>
+          ) : (
+            <svg viewBox="0 0 120 70" class={x.icon}><g><path d="M30 18 h26 l-3 40 h-20 z" fill="#2c2c2e" stroke="#3b2416" stroke-width="4" stroke-linejoin="round"/><rect x="26" y="12" width="34" height="8" rx="3" fill="#3d3d40" stroke="#3b2416" stroke-width="4"/><circle cx="36" cy="61" r="5" fill="#fff8ee" stroke="#3b2416" stroke-width="3"/></g><g><path d="M66 18 h26 l-3 40 h-20 z" fill="#2f6fd0" stroke="#3b2416" stroke-width="4" stroke-linejoin="round"/><rect x="62" y="12" width="34" height="8" rx="3" fill="#3f86e6" stroke="#3b2416" stroke-width="4"/><circle cx="72" cy="61" r="5" fill="#fff8ee" stroke="#3b2416" stroke-width="3"/></g><path class="motion" d="M6 30 h12 M2 40 h14 M8 50 h10" stroke="#3b2416" stroke-width="4" stroke-linecap="round"/></svg>
+          )}
+        </span>
+        <strong>{x.what}</strong>
+        <span class="why">{x.why}</span>
+      </li>
+    ))}
+  </ol>
+  <p class="foot">Trash goes in the black cart, recycling in the blue. Not sure which day is yours? <a href={SITE.townScheduleUrl} rel="noopener">Check the Town's pickup schedule</a>. We're a private service, not the Town of Gilbert or your HOA.</p>
+</section>
+<style>
+  /* Three crisp panels, each its own sky: tonight's sunset, the dark hours, the next evening. */
+  .shift { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); border: 2px solid var(--ink); border-radius: 26px; overflow: hidden; box-shadow: 8px 8px 0 var(--ink); position: relative; background: var(--ink); gap: 2px; }
+  li:nth-child(1) { background: linear-gradient(180deg, #ffcf9a 0%, #f7a477 100%); }
+  li:nth-child(2) { background:
+      radial-gradient(circle at 78% 14%, #fff6d8 0 2px, transparent 3px), radial-gradient(circle at 60% 26%, #fff6d8 0 1.5px, transparent 2.5px),
+      radial-gradient(circle at 88% 34%, #fff6d8 0 1px, transparent 2px), radial-gradient(circle at 40% 12%, #fff6d8 0 1px, transparent 2px),
+      radial-gradient(circle at 84% 18%, #fff3c9 0 18px, transparent 19px),
+      linear-gradient(180deg, #2b2350 0%, #3d2c5e 100%); }
+  li:nth-child(3) { background: linear-gradient(180deg, #ffe0b0 0%, #ffbf86 100%); }
+  .shift::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 18px; background: #6d6470; border-top: 2px solid var(--ink); background-image: repeating-linear-gradient(90deg, transparent 0 46px, #f3e3b8 46px 70px); background-size: 100% 3px; background-repeat: no-repeat; background-position: 0 8px; }
+  li { padding: clamp(24px, 3vw, 36px) clamp(18px, 2.4vw, 30px) 52px; display: flex; flex-direction: column; align-items: flex-start; }
+  li.light { color: #3b2416; }
+  li.dark { color: #fff4e6; }
+  .time { font-size: clamp(2.6rem, 5vw, 4rem); font-weight: 800; letter-spacing: -0.05em; line-height: .9; }
+  .day { font-size: .78rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; margin-top: 8px; opacity: .85; }
+  .icon { display: block; width: clamp(96px, 11vw, 132px); margin: 22px 0 18px; }
+  .icon svg { display: block; width: 100%; height: auto; }
+  .back .motion { transform: scaleX(-1); transform-origin: 60px 0; }
+  .out .motion, .back .motion { opacity: .55; }
+  strong { font-size: clamp(1.15rem, 1.8vw, 1.4rem); letter-spacing: -0.02em; line-height: 1.15; }
+  .why { margin-top: 6px; font-size: 1rem; opacity: .85; }
+  .foot { margin: clamp(28px, 4vw, 44px) 0 0; font-size: 1rem; line-height: 1.6; color: var(--muted); max-width: 44rem; }
+  .foot a { color: var(--ink); font-weight: 800; }
+  @media (max-width: 767px) {
+    .shift { grid-template-columns: 1fr; }
+    li { display: grid; grid-template-columns: 1fr auto; grid-template-areas: "time icon" "day icon" "what what" "why why"; padding: 26px 22px; }
+    li:last-child { padding-bottom: 50px; }
+    .time { grid-area: time; } .day { grid-area: day; } .icon { grid-area: icon; margin: 0; width: 104px; align-self: center; }
+    strong { grid-area: what; margin-top: 14px; } .why { grid-area: why; }
+  }
+</style>

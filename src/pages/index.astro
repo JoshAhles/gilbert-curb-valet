@@ -1,0 +1,73 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import HeroScene from "../components/HeroScene.astro";
+import HowItWorks from "../components/HowItWorks.astro";
+import Price from "../components/Price.astro";
+import Ticker from "../components/Ticker.astro";
+import WhoFor from "../components/WhoFor.astro";
+import TrashDayFacts from "../components/TrashDayFacts.astro";
+import OwnerNote from "../components/OwnerNote.astro";
+import Faq from "../components/Faq.astro";
+import FinalCta from "../components/FinalCta.astro";
+import Footer from "../components/Footer.astro";
+import StickyBar from "../components/StickyBar.astro";
+import Analytics from "../components/Analytics.astro";
+import ConsentToast from "../components/ConsentToast.astro";
+---
+<Layout>
+  <Analytics slot="head" />
+  <main>
+    <div class="stage" data-stage>
+      <HeroScene />
+      <div class="wrap content">
+        <Hero />
+        <HowItWorks />
+      </div>
+    </div>
+    <Ticker />
+    <WhoFor />
+    <Price />
+    <TrashDayFacts />
+    <OwnerNote />
+    <Faq />
+  </main>
+  <FinalCta />
+  <Footer />
+  <StickyBar />
+  <ConsentToast />
+  <script>import "../scripts/reveal.js";</script>
+</Layout>
+<style>
+  /* The stage keeps light-mode text even in dark mode: its sky is drawn by the scene.
+     mount.js sets --stage-top/--stage-bottom from the scene's sky and data-night when it gets dark. */
+  .stage {
+    --ink: #3b2416; --text: #4a2e1c; --muted: #4a2e1c; --eyebrow: #5a2610;
+    --field: #fff8ee; --field-border: #3b2416; --card: #fff8ee;
+    --halo: none;
+    position: relative;
+    /* clip (not hidden) keeps sticky working but stops the scene layer from spilling over the next section. */
+    overflow: clip;
+    background: linear-gradient(180deg, var(--stage-top, #ffd8a8) 0%, var(--stage-bottom, #f6e3c7) 100%);
+    color: var(--text);
+    border-bottom: 2px solid #3b2416;
+    transition: color .4s ease;
+  }
+  .content { position: relative; z-index: 1; }
+  .content > :global(*) { max-width: 520px; }
+  .content > :global(.hero) { max-width: 640px; }
+  @media (min-width: 768px) {
+    .stage[data-night] { --ink: #fff4e6; --text: #f6e6d3; --muted: #eadbc9; --eyebrow: #ffc29e; --halo: 0 0 18px rgb(20 14 40 / .6); }
+    /* A soft halo keeps text readable while the sky passes between dusk and night. */
+    .stage :global(h1), .stage :global(h3), .stage :global(.lede), .stage :global(.step p), .stage :global(.eyebrow) { text-shadow: var(--halo); }
+  }
+  @media (max-width: 767px) {
+    /* Phones: hero, then the sticky scene card, then the steps. The page sky stays put. */
+    /* Fixed light sky on phones (dark mode too): the stage text is always dark-on-light. */
+    .stage { display: flex; flex-direction: column; background: linear-gradient(180deg, #ffd8a8 0%, #ffc49a 40%, #f6e3c7 100%); }
+    .content { display: contents; }
+    .content > :global(.hero) { order: 1; }
+    .content > :global(.how) { order: 3; }
+    .content > :global(*) { max-width: none; padding-inline: 16px; }
+  }
+</style>

@@ -1,0 +1,18 @@
+---
+// Decorative band of key facts. The same facts are in the page text, so it is hidden from screen readers.
+const items = ["Out the night before", "Back the same evening", "Gilbert, AZ", "$29 first month", "Up to 2 carts", "No contract", "Refer a neighbor, get 2 months free"];
+const row = [...items, ...items];
+---
+<div class="ticker" aria-hidden="true">
+  <div class="track">
+    {row.map((t) => <span class="item">{t}<span class="dot">●</span></span>)}
+  </div>
+</div>
+<style>
+  .ticker { background: var(--btn); color: var(--btn-text); border-bottom: 2px solid #3b2416; overflow: hidden; padding-block: 16px; }
+  .track { display: flex; width: max-content; animation: slide 38s linear infinite; }
+  .item { font-weight: 800; font-size: clamp(1.1rem, 2vw, 1.5rem); letter-spacing: -0.01em; white-space: nowrap; display: inline-flex; align-items: center; gap: 22px; padding-right: 22px; }
+  .dot { color: #ffd8a8; font-size: .6em; }
+  @keyframes slide { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .track { animation: none; } }
+</style>

@@ -1,0 +1,36 @@
+---
+import { SITE } from "../data/site.js";
+---
+{SITE.gaId && (
+  <div id="consent-toast" hidden class="toast ink-box" role="dialog" aria-label="Analytics consent">
+    <p>We use anonymous analytics to see which parts of this page work. Okay with you?</p>
+    <div class="btns">
+      <button class="ink-btn" data-consent="granted">Allow</button>
+      <button class="ink-btn ghost" data-consent="denied">No thanks</button>
+    </div>
+  </div>
+)}
+<style>
+  .toast { position: fixed; left: 16px; bottom: 16px; z-index: 60; max-width: 340px; padding: 16px; font-size: .9rem; }
+  .toast p { margin: 0 0 12px; }
+  .btns { display: flex; gap: 8px; }
+  .btns .ink-btn { padding: 8px 12px; font-size: .85rem; }
+  .ghost { background: var(--card); color: var(--ink); }
+</style>
+<script>
+  import { needsConsentPrompt, readConsent, saveConsent } from "../lib/analytics.js";
+  const el = document.getElementById("consent-toast");
+  const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  if (el && !readConsent() && needsConsentPrompt(tz)) {
+    el.hidden = false;
+    el.querySelectorAll<HTMLButtonElement>("[data-consent]").forEach((b) =>
+      b.addEventListener("click", () => {
+        const v = b.dataset.consent!;
+        saveConsent(v);
+        const w = window as any;
+        if (typeof w.gtag === "function") w.gtag("consent", "update", { analytics_storage: v });
+        el.hidden = true;
+      }),
+    );
+  }
+</script>

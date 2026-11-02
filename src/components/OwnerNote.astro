@@ -1,0 +1,17 @@
+---
+import { OWNER_NOTE } from "../data/owner-note.js";
+---
+{OWNER_NOTE && (
+  <section class="wrap block" aria-labelledby="owner-h">
+    <div class="ink-box note">
+      <h2 id="owner-h">From the owner</h2>
+      <p>{OWNER_NOTE}</p>
+    </div>
+  </section>
+)}
+<style>
+  .block { padding-block: 40px; }
+  .note { padding: 28px; max-width: 680px; margin-inline: auto; }
+  h2 { font-size: 1.6rem; margin: 0 0 10px; }
+  p { margin: 0; line-height: 1.6; font-size: 1.08rem; }
+</style>

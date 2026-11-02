@@ -1,0 +1,26 @@
+---
+import SignupForm from "./SignupForm.astro";
+---
+<section class="final" aria-labelledby="final-h">
+  <div class="wrap inner">
+    <p class="sticker">Join the list · Free</p>
+    <h2 id="final-h">Trash night? <span>Handled.</span></h2>
+    <p class="lead">We're opening Gilbert streets one at a time. Neighbors on the list hear first.</p>
+    <div class="formbox"><SignupForm source="final" /></div>
+  </div>
+  <svg class="horizon" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 120 L120 96 L220 112 L330 64 L420 92 L520 78 L640 104 L760 58 L860 88 L980 70 L1100 100 L1220 66 L1330 90 L1440 80 V220 H0 Z" fill="#c98a6b" opacity=".55"/>
+    <path d="M0 160 L160 132 L300 150 L470 118 L620 146 L800 124 L960 150 L1130 120 L1290 146 L1440 132 V220 H0 Z" fill="#a8604a" opacity=".7"/>
+    <path d="M0 196 C 240 176, 480 184, 720 190 S 1200 178, 1440 188 V220 H0 Z" fill="#3b2416"/>
+    <g fill="#5a7a3a" stroke="#3b2416" stroke-width="3"><path d="M1180 190 v-46 a9 9 0 0 1 18 0 v46 z"/><path d="M1180 164 h-12 v-14 a6 6 0 0 1 12 0 z"/><path d="M1198 158 h12 v-16 a6 6 0 0 0 -12 0 z"/></g>
+  </svg>
+</section>
+<style>
+  .final { position: relative; overflow: hidden; background: linear-gradient(180deg, #ffd8a8 0%, #ffb88a 45%, #f39a72 100%); border-top: 2px solid #3b2416; padding-block: clamp(84px, 12vw, 150px) clamp(150px, 18vw, 230px); color: #3b2416; }
+  .inner { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; }
+  h2 { font-size: clamp(3rem, 8vw, 6.4rem); margin: 22px 0 16px; color: #3b2416; }
+  h2 span { color: #fff8ee; -webkit-text-stroke: 2px #3b2416; paint-order: stroke fill; text-shadow: 5px 5px 0 #3b2416; }
+  .lead { margin: 0 0 30px; font-size: 1.18rem; max-width: 32rem; color: #4a2e1c; }
+  .formbox { width: 100%; box-sizing: border-box; max-width: 520px; background: #fff8ee; border: 2px solid #3b2416; border-radius: 22px; box-shadow: 8px 8px 0 #3b2416; padding: 22px; text-align: left; --ink: #3b2416; --field: #fff8ee; --field-border: #3b2416; --muted: #6e4a33; }
+  .horizon { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: clamp(110px, 15vw, 220px); }
+</style>

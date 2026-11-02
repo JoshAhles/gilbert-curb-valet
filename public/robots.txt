@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /og
+
+Sitemap: https://gilbertcurbvalet.com/sitemap-index.xml

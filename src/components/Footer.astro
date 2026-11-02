@@ -1,0 +1,20 @@
+---
+import { SITE } from "../data/site.js";
+---
+<footer class="footer">
+  <div class="wrap row">
+    <p>Gilbert Curb Valet is a service of CodeBucky LLC. Not affiliated with the Town of Gilbert.</p>
+    <nav aria-label="Legal">
+      <a href="/privacy/">Privacy</a>
+      <a href="/terms/">Terms</a>
+      {SITE.contactEmail && <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>}
+    </nav>
+  </div>
+</footer>
+<style>
+  .footer { background: var(--bg-alt); border-top: 2px solid var(--ink); padding-block: 26px 90px; font-size: .9rem; }
+  .row { display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: space-between; align-items: center; }
+  p { margin: 0; }
+  nav { display: flex; gap: 18px; }
+  a { color: var(--ink); font-weight: 700; }
+</style>

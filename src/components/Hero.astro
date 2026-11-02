@@ -1,0 +1,21 @@
+---
+import SignupForm from "./SignupForm.astro";
+---
+<section class="hero" id="join">
+  <h1>Never haul your<br /> trash cans <span class="swash">again.<svg viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true"><path d="M4 16 C 70 4, 150 4, 296 12" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"/></svg></span></h1>
+  <p class="lede"><strong>Gilbert Curb Valet</strong> is Gilbert's trash can valet. We roll your trash and recycling carts to the curb the night before pickup, then bring them back that evening. $29 for the first month, then $39 a month.</p>
+  <SignupForm source="hero" />
+</section>
+<style>
+  .hero { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; padding-block: 48px; box-sizing: border-box; }
+  h1 { font-size: clamp(2.9rem, 5.4vw, 5.1rem); margin: 0 0 .32em; max-width: none; white-space: normal; }
+  .lede strong { color: var(--ink); }
+  /* The underline draws itself in once on load. */
+  .swash path { stroke-dasharray: 320; stroke-dashoffset: 320; animation: draw .9s .5s cubic-bezier(.6,0,.2,1) forwards; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @media (prefers-reduced-motion: reduce) { .swash path { animation: none; stroke-dashoffset: 0; } }
+  .swash { position: relative; white-space: nowrap; color: var(--btn); }
+  .swash svg { position: absolute; left: 0; right: 0; bottom: -.12em; width: 100%; height: .22em; color: var(--ink); }
+  .lede { font-size: clamp(1.02rem, 1.6vw, 1.22rem); line-height: 1.5; margin: 0 0 22px; max-width: 34rem; color: var(--text); }
+  @media (max-width: 767px) { .hero { min-height: 0; display: block; padding-block: 40px 24px; } h1 br { display: none; } .lede { margin: 12px 0 16px; } }
+</style>

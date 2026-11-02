@@ -1,0 +1,29 @@
+{
+  "name": "gilbert-curb-valet",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "test": "node --test tests/*.test.js",
+    "render-assets": "node scripts/render-assets.mjs",
+    "check": "node scripts/check-page.mjs"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource-variable/bricolage-grotesque": "^5.3.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^5.18.2",
+    "gsap": "^3.15.0",
+    "tailwindcss": "^4.3.3",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "@axe-core/puppeteer": "^4.14.0",
+    "linkedom": "^0.18.15",
+    "puppeteer-core": "^25.16.0",
+    "sharp": "^0.35.5"
+  }
+}
