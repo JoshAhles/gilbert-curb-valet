@@ -50,3 +50,12 @@ test("legal pages, sitemap, posters", () => {
     assert.ok(statSync(join(dist, "images", `hero-poster-${f}`)).size <= 120 * 1024, f);
   }
 });
+
+test("no file the site serves is git-ignored (it would 404 after deploy)", async () => {
+  const { execSync } = await import("node:child_process");
+  const root = new URL("..", import.meta.url).pathname;
+  const files = execSync("find public -type f", { cwd: root }).toString().trim().split("\n");
+  let ignored = "";
+  try { ignored = execSync(`git check-ignore ${files.map((f) => `'${f}'`).join(" ")}`, { cwd: root }).toString().trim(); } catch {}
+  assert.equal(ignored, "", `ignored by .gitignore: ${ignored}`);
+});
