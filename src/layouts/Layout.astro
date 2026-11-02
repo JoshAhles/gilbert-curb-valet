@@ -5,7 +5,7 @@ import { TITLE, DESCRIPTION, buildJsonLd } from "../lib/seo.js";
 interface Props { title?: string; description?: string; noindex?: boolean; }
 const { title = TITLE, description = DESCRIPTION, noindex = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
-const og = new URL("/og-image.png", SITE.url).href;
+const og = new URL("/og-image.jpg", SITE.url).href;
 ---
 <!doctype html>
 <html lang="en">
@@ -18,7 +18,9 @@ const og = new URL("/og-image.png", SITE.url).href;
     {noindex && <meta name="robots" content="noindex" />}
     <meta name="theme-color" content="#ffb88a" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#2b2350" media="(prefers-color-scheme: dark)" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-48.png" type="image/png" sizes="48x48" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={SITE.name} />
     <meta property="og:title" content={title} />

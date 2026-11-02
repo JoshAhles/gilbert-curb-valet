@@ -241,7 +241,7 @@ export function makeTruck() {
 // Gilbert's landmark: an old elevated water tower. Four splayed legs, cross braces, a round tank with a cone roof.
 export function makeWaterTower() {
   const t = new THREE.Group();
-  const leg = 0x9aa6ad, tank = 0xe8eef0;
+  const leg = 0xeee2cc, tank = 0xf6ecdb; // cream tower, terracotta roof: matches the brand art
   const H = 5.2;
   for (const [x, z] of [[-1, -1], [1, -1], [1, 1], [-1, 1]]) {
     const l = inked(new THREE.CylinderGeometry(0.07, 0.09, H + 0.1, 6), leg, 0.02);
@@ -272,7 +272,7 @@ export function makeWaterTower() {
   bottom.scale.y = 0.4;
   bottom.position.y = H;
   t.add(bottom);
-  const roof = inked(new THREE.ConeGeometry(1.55, 0.95, 28), 0xd5dde1, 0.04);
+  const roof = inked(new THREE.ConeGeometry(1.55, 0.95, 28), 0xc8643f, 0.04);
   roof.position.y = H + 1.7 + 0.47;
   t.add(roof);
   const cap = new THREE.Mesh(new THREE.SphereGeometry(0.12, 10, 8), toon(leg));
@@ -282,7 +282,7 @@ export function makeWaterTower() {
   rail.rotation.x = Math.PI / 2;
   rail.position.y = H + 0.25;
   t.add(rail);
-  const band = new THREE.Mesh(new THREE.CylinderGeometry(1.47, 1.47, 0.22, 28, 1, true), toon(0x6f9fc2));
+  const band = new THREE.Mesh(new THREE.CylinderGeometry(1.47, 1.47, 0.22, 28, 1, true), toon(0xe0d0b6));
   band.position.y = H + 0.95;
   t.add(band);
   return t;

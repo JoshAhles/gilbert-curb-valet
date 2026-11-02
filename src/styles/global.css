@@ -1,8 +1,8 @@
 @import "tailwindcss";
-@import "@fontsource-variable/bricolage-grotesque";
+@import "@fontsource-variable/outfit";
 
 @theme {
-  --font-sans: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Outfit Variable", ui-sans-serif, system-ui, sans-serif;
   --color-sky-1: #ffd8a8;
   --color-sky-2: #ffb88a;
   --color-sand-1: #f6e3c7;
@@ -63,7 +63,7 @@ body {
   overflow-x: clip;
 }
 
-h1, h2, h3 { color: var(--ink); font-weight: 800; letter-spacing: -0.035em; line-height: .98; text-wrap: balance; }
+h1, h2, h3 { color: var(--ink); font-weight: 800; letter-spacing: -0.03em; line-height: 1; text-wrap: balance; }
 p { text-wrap: pretty; }
 
 .eyebrow { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--eyebrow); }

@@ -42,7 +42,7 @@ test("first-load JS stays small; three and gsap only load later", async () => {
 });
 
 test("legal pages, sitemap, posters", () => {
-  for (const p of ["privacy/index.html", "terms/index.html", "sitemap-index.xml", "robots.txt", "og-image.png", "favicon.svg"]) assert.ok(existsSync(join(dist, p)), p);
+  for (const p of ["privacy/index.html", "terms/index.html", "sitemap-index.xml", "robots.txt", "og-image.jpg", "favicon-48.png", "apple-touch-icon.png", "site.webmanifest"]) assert.ok(existsSync(join(dist, p)), p);
   const sm = readFileSync(join(dist, "sitemap-0.xml"), "utf8");
   assert.ok(!sm.includes("/og"));
   for (const f of ["desktop.avif", "desktop.webp", "mobile.avif", "mobile.webp"]) {

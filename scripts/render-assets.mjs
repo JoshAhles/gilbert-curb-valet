@@ -48,8 +48,8 @@ try {
   await page.goto(`${BASE}/og`, { waitUntil: "networkidle0" });
   await page.evaluate(() => document.fonts.ready);
   await page.evaluate(() => document.querySelector("astro-dev-toolbar")?.remove());
-  await page.screenshot({ path: "public/og-image.png", clip: { x: 0, y: 0, width: 1200, height: 630 } });
-  console.log("public/og-image.png", Math.round(statSync("public/og-image.png").size / 1024) + " KB");
+  await page.screenshot({ path: "public/og-image.jpg", type: "jpeg", quality: 85, clip: { x: 0, y: 0, width: 1200, height: 630 } });
+  console.log("public/og-image.jpg", Math.round(statSync("public/og-image.jpg").size / 1024) + " KB");
   await browser.close();
 } finally {
   dev.kill();

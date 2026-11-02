@@ -1,0 +1,22 @@
+---
+// Logo lockup: the 3D mark plus the name as real text (crisp, and readable by search engines).
+interface Props { size?: "sm" | "md"; tone?: "ink" | "light" }
+const { size = "md", tone = "ink" } = Astro.props;
+---
+<a href="/" class:list={["brand", size, tone]}>
+  <picture>
+    <source srcset="/brand/mark.webp" type="image/webp" />
+    <img src="/brand/mark.png" alt="" width="240" height="240" />
+  </picture>
+  <span class="name"><span>Gilbert</span><span class="accent">Curb Valet</span></span>
+</a>
+<style>
+  .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
+  img { display: block; width: 56px; height: 56px; object-fit: contain; }
+  .sm img { width: 44px; height: 44px; }
+  .name { display: flex; flex-direction: column; font-weight: 800; line-height: .95; letter-spacing: -0.03em; font-size: 1.2rem; color: var(--ink); }
+  .sm .name { font-size: 1.02rem; }
+  .accent { color: var(--eyebrow); }
+  .light .name { color: #fff8ee; }
+  .light .accent { color: #ffc29e; }
+</style>
