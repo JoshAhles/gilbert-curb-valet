@@ -16,7 +16,7 @@ execSync("npx astro build", { stdio: "ignore" });
 const srv = spawn("npx", ["astro", "preview", "--port", String(PORT)], { stdio: "ignore" });
 try {
   for (let i = 0; i < 60; i++) { try { await fetch(BASE); break; } catch { await sleep(500); } }
-  const browser = await puppeteer.launch({ executablePath: CHROME, headless: true, args: ["--use-gl=angle", "--enable-webgl", "--ignore-gpu-blocklist"] });
+  const browser = await puppeteer.launch({ executablePath: CHROME, headless: true, args: ["--use-gl=angle", "--enable-webgl", "--ignore-gpu-blocklist", "--use-mock-keychain", "--password-store=basic"] });
   const page = await browser.newPage();
 
   // 1. Phone first view
@@ -48,18 +48,17 @@ try {
   const sw2 = await page.evaluate(() => document.documentElement.scrollWidth);
   rec("375x560 no sideways scroll", sw2 <= 375, `scrollWidth ${sw2}`);
   const total = await page.evaluate(() => document.querySelector("#how").getBoundingClientRect().bottom + scrollY);
-  let blank = 0;
-  for (let i = 0; i <= 10; i++) {
+  for (let i = 0; i <= 10; i += 3) {
     await page.evaluate((y) => scrollTo(0, y), (total * i) / 10);
     await sleep(250);
-    const ok = await page.evaluate(() => {
-      const el = document.querySelector("[data-hero-scene]");
-      return el.classList.contains("live") || document.querySelector("[data-poster]").complete;
-    });
-    if (!ok) blank++;
-    if (i % 3 === 0) await page.screenshot({ path: `checks/phone-scroll-${i}.png` });
+    await page.screenshot({ path: `checks/phone-scroll-${i}.png` });
   }
-  rec("375x560 scene or poster always present while scrolling", blank === 0, `${blank} blank steps`);
+  const phone = await page.evaluate(() => ({
+    sceneHidden: getComputedStyle(document.querySelector("[data-hero-scene]").parentElement).display === "none",
+    noCanvas: !document.querySelector("[data-hero-scene] canvas"),
+    logoPx: document.querySelector(".hero .logo img").getBoundingClientRect().width,
+  }));
+  rec("375x560 phone shows the big logo, no 3D scene", phone.sceneHidden && phone.noCanvas && phone.logoPx >= 100, JSON.stringify(phone));
 
   // 4. Dark mode + contrast
   for (const [w, h] of [[375, 667], [1400, 900]]) {

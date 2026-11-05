@@ -5,8 +5,8 @@
 <div class="backdrop" aria-hidden="true">
   <div class="scene" data-hero-scene>
     <picture>
-      <source type="image/avif" media="(max-width: 767px)" srcset="/images/hero-poster-mobile.avif" />
-      <source type="image/webp" media="(max-width: 767px)" srcset="/images/hero-poster-mobile.webp" />
+      <!-- Phones hide the scene (the hero logo stands in), so they get a 1px blank instead of a poster download. -->
+      <source media="(max-width: 767px)" srcset="data:image/gif;base64,R0lGODlhAQABAAAAACw=" />
       <source type="image/avif" srcset="/images/hero-poster-desktop.avif" />
       <img src="/images/hero-poster-desktop.webp" alt="" width="1600" height="1000" decoding="async" fetchpriority="low" data-poster />
     </picture>
@@ -24,15 +24,7 @@
   img { transition: opacity .6s ease; }
   .scene :global(canvas) { position: absolute; inset: 0; width: 100% !important; height: 100% !important; }
   .scene:global(.live) img { opacity: 0; }
-  /* Phones: a card that sticks to the top while the steps scroll beneath it. */
-  @media (max-width: 767px) {
-    .backdrop { order: 2; top: 10px; height: 44svh; margin: 0 16px; z-index: 3; }
-    .scene {
-      -webkit-mask-image: none; mask-image: none;
-      border: 2px solid var(--ink); border-radius: 20px; overflow: hidden; box-shadow: 5px 5px 0 var(--ink);
-      background: linear-gradient(180deg, var(--stage-top, #ffd8a8), var(--stage-bottom, #f6e3c7));
-    }
-    picture, img { object-position: 50% 100%; }
-  }
+  /* Phones: no 3D scene. The bigger logo at the top of the hero stands in for it. */
+  @media (max-width: 767px) { .backdrop { display: none; } }
 </style>
 <script>import "../scripts/scene/boot.js";</script>

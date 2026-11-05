@@ -29,10 +29,9 @@ const steps = [
   h3 { font-size: clamp(1.6rem, 3vw, 2.4rem); margin: 16px 0 10px; max-width: 16ch; }
   p { margin: 0; font-size: 1.12rem; line-height: 1.55; max-width: 34ch; }
   @media (max-width: 767px) {
-    .how { padding-block: 28px 6svh; }
-    .step:last-child { min-height: 34svh; }
-    /* Phones: steps scroll up under the sticky scene card, one per screen. */
-    .step { min-height: 46svh; align-items: flex-start; padding-top: 4svh; }
+    .how { padding-block: 16px 40px; }
+    /* Phones have no 3D scene to pace, so the steps sit close together. */
+    .step, .step:last-child { min-height: 0; align-items: flex-start; padding-top: 28px; }
     h3 { max-width: none; font-size: 1.6rem; }
   }
 </style>

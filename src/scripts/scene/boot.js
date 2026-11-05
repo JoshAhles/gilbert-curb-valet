@@ -17,6 +17,7 @@ function start() {
     webgl: hasWebGL(),
     saveData: Boolean(navigator.connection?.saveData),
     cores: navigator.hardwareConcurrency,
+    phone: matchMedia("(max-width: 767px)").matches,
   });
   if (!ok) {
     document.body.classList.add("no-scene");

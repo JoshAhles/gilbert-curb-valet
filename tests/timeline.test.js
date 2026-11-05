@@ -45,10 +45,12 @@ test("wheels turn only while carts move", () => {
 });
 
 test("shouldRunScene", () => {
-  const ok = { reducedMotion: false, webgl: true, saveData: false, cores: 8 };
+  const ok = { reducedMotion: false, webgl: true, saveData: false, cores: 8, phone: false };
   assert.equal(shouldRunScene(ok), true);
   assert.equal(shouldRunScene({ ...ok, reducedMotion: true }), false);
   assert.equal(shouldRunScene({ ...ok, webgl: false }), false);
   assert.equal(shouldRunScene({ ...ok, saveData: true }), false);
   assert.equal(shouldRunScene({ ...ok, cores: 2 }), false);
+  // Phones show the logo instead of the 3D scene.
+  assert.equal(shouldRunScene({ ...ok, phone: true }), false);
 });

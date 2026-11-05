@@ -20,5 +20,11 @@ import Brand from "./Brand.astro";
   .swash { position: relative; white-space: nowrap; color: var(--btn); }
   .swash svg { position: absolute; left: 0; right: 0; bottom: -.12em; width: 100%; height: .22em; color: var(--ink); }
   .lede { font-size: clamp(1.02rem, 1.6vw, 1.22rem); line-height: 1.5; margin: 0 0 22px; max-width: 34rem; color: var(--text); }
-  @media (max-width: 767px) { .hero { min-height: 0; display: block; padding-block: 40px 24px; } h1 br { display: none; } .lede { margin: 12px 0 16px; } }
+  @media (max-width: 767px) {
+    .hero { min-height: 0; display: block; padding-block: 32px 24px; } h1 br { display: none; } .lede { margin: 12px 0 16px; }
+    /* Phones show the logo instead of the 3D scene, so it gets more room. */
+    .logo { margin-bottom: 18px; }
+    .logo :global(img) { width: 104px; height: 104px; }
+    .logo :global(.name) { font-size: 1.6rem; }
+  }
 </style>
