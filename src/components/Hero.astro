@@ -4,11 +4,20 @@ import Brand from "./Brand.astro";
 ---
 <section class="hero" id="join">
   <div class="logo"><Brand /></div>
+  <p class="welcome" data-welcome hidden></p>
   <h1>Never haul your<br /> trash cans <span class="swash">again.<svg viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true"><path d="M4 16 C 70 4, 150 4, 296 12" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"/></svg></span></h1>
   <p class="lede"><strong>Gilbert Curb Valet</strong> is Gilbert's trash can valet. We roll your trash and recycling carts to the curb the night before pickup, then bring them back that evening. $29 for the first month, then $39 a month.</p>
   <SignupForm source="hero" />
 </section>
+<script>
+  import { welcomeFor } from "../scripts/welcome.js";
+  const msg = welcomeFor(location.search);
+  const el = document.querySelector("[data-welcome]");
+  if (msg && el) { el.textContent = msg; el.hidden = false; }
+</script>
 <style>
+  .welcome { display: block; width: fit-content; max-width: 100%; box-sizing: border-box; margin: 0 0 14px; padding: 6px 14px; border-radius: 99px; background: #3b2416; color: #fff8ee; font-weight: 700; font-size: 1rem; }
+  .welcome[hidden] { display: none; }
   .hero { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; padding-block: 48px; box-sizing: border-box; }
   h1 { font-size: clamp(2.9rem, 5.4vw, 5.1rem); margin: 0 0 .32em; max-width: none; white-space: normal; }
   .lede strong { color: var(--ink); }
